@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.training.ratingservice.dto.*;
 import org.training.ratingservice.entity.Rating;
+import org.training.ratingservice.external.HotelService;
+import org.training.ratingservice.external.UserService;
 import org.training.ratingservice.repository.RatingRepository;
 import org.training.ratingservice.service.RatingService;
 
@@ -25,6 +27,12 @@ public class RatingServiceImpl implements RatingService {
 
     @Autowired
     private RestTemplate template;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private HotelService hotelService;
 
     @Override
     public Response addRating(RatingDto ratingDto) {
@@ -49,11 +57,11 @@ public class RatingServiceImpl implements RatingService {
     @Override
     public List<ViewRating> getAllByUserId(String userId) {
 
-        User user = template.getForObject("http://USER-SERVICE/users/"+userId, User.class);
+        User user = userService.getUserByUserId(userId);
 
         return ratingRepository.findRatingByUserId(userId).stream().map(rating -> {
 
-            Hotel hotel = template.getForObject("http://HOTEL-SERVICE/hotels/"+rating.getHotelId(), Hotel.class);
+            Hotel hotel = hotelService.getHotelByHotelId(rating.getHotelId());
             ViewRating ratingDto = ViewRating.builder().feedback(rating.getFeedback()).rating(rating.getRating()).user(user).hotel(hotel).build();
             return ratingDto;
         }).collect(Collectors.toList());
