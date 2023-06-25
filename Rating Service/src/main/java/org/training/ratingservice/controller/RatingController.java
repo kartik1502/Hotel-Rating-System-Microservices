@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.training.ratingservice.dto.RatingDto;
 import org.training.ratingservice.dto.Response;
+import org.training.ratingservice.dto.ViewRating;
 import org.training.ratingservice.service.RatingService;
 
 import javax.validation.Valid;
@@ -29,7 +30,7 @@ public class RatingController {
     }
 
     @GetMapping("/users/{userId}")
-    public ResponseEntity<List<RatingDto>> getAllRatingByUserId(@PathVariable String userId){
+    public ResponseEntity<List<ViewRating>> getAllRatingByUserId(@PathVariable String userId){
         return ResponseEntity.ok(ratingService.getAllByUserId(userId));
     }
 

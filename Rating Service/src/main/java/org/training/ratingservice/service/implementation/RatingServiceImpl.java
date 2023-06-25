@@ -4,8 +4,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.training.ratingservice.dto.RatingDto;
-import org.training.ratingservice.dto.Response;
+import org.springframework.web.client.RestTemplate;
+import org.training.ratingservice.dto.*;
 import org.training.ratingservice.entity.Rating;
 import org.training.ratingservice.repository.RatingRepository;
 import org.training.ratingservice.service.RatingService;
@@ -22,6 +22,9 @@ public class RatingServiceImpl implements RatingService {
 
     @Value("${spring.application.responseCode}")
     private String responseCode;
+
+    @Autowired
+    private RestTemplate template;
 
     @Override
     public Response addRating(RatingDto ratingDto) {
@@ -44,10 +47,14 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public List<RatingDto> getAllByUserId(String userId) {
+    public List<ViewRating> getAllByUserId(String userId) {
+
+        User user = template.getForObject("http://localhost:8080/users/"+userId, User.class);
+
         return ratingRepository.findRatingByUserId(userId).stream().map(rating -> {
-            RatingDto ratingDto = new RatingDto();
-            BeanUtils.copyProperties(rating, ratingDto);
+
+            Hotel hotel = template.getForObject("http://localhost:8081/hotels/"+rating.getHotelId(), Hotel.class);
+            ViewRating ratingDto = ViewRating.builder().feedback(rating.getFeedback()).rating(rating.getRating()).user(user).hotel(hotel).build();
             return ratingDto;
         }).collect(Collectors.toList());
     }
