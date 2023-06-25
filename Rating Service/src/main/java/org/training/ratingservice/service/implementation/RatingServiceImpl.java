@@ -49,11 +49,11 @@ public class RatingServiceImpl implements RatingService {
     @Override
     public List<ViewRating> getAllByUserId(String userId) {
 
-        User user = template.getForObject("http://localhost:8080/users/"+userId, User.class);
+        User user = template.getForObject("http://USER-SERVICE/users/"+userId, User.class);
 
         return ratingRepository.findRatingByUserId(userId).stream().map(rating -> {
 
-            Hotel hotel = template.getForObject("http://localhost:8081/hotels/"+rating.getHotelId(), Hotel.class);
+            Hotel hotel = template.getForObject("http://HOTEL-SERVICE/hotels/"+rating.getHotelId(), Hotel.class);
             ViewRating ratingDto = ViewRating.builder().feedback(rating.getFeedback()).rating(rating.getRating()).user(user).hotel(hotel).build();
             return ratingDto;
         }).collect(Collectors.toList());
