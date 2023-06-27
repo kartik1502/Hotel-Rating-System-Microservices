@@ -1,6 +1,7 @@
 package org.training.ratingservice.controller;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class RatingController {
     }
 
     @GetMapping("/users/{userId}")
-    @CircuitBreaker(name = "userHotelBreaker", fallbackMethod = "fallBackUserHotelBreaker")
+    @Retry(name = "userHotelRetry", fallbackMethod = "fallBackUserHotelBreaker")
     public ResponseEntity<List<ViewRating>> getAllRatingByUserId(@PathVariable String userId){
         return ResponseEntity.ok(ratingService.getAllByUserId(userId));
     }
