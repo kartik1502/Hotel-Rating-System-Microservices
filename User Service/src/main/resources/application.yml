@@ -1,0 +1,38 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: USER-SERVICE
+    bad_request: 403
+    responseCode: 200
+    conflict: 409
+    not_found: 404
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/hotel_rating_user_service
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    properties:
+      username: root
+      password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+  config:
+    import: configserver:http://localhost:8083
+
+logging:
+  level:
+    web: debug
+    org.springframework.web: info
+    org.training: error
+
+  logback:
+    rollingpolicy:
+      max-file-size: 1MB
