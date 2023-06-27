@@ -1,5 +1,8 @@
 package org.training.ratingservice.controller;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +13,7 @@ import org.training.ratingservice.dto.ViewRating;
 import org.training.ratingservice.service.RatingService;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -18,6 +22,8 @@ public class RatingController {
 
     @Autowired
     private RatingService ratingService;
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @PostMapping
     public ResponseEntity<Response> addRating(@RequestBody @Valid RatingDto ratingDto){
@@ -30,9 +36,22 @@ public class RatingController {
     }
 
     @GetMapping("/users/{userId}")
+    @CircuitBreaker(name = "userHotelBreaker", fallbackMethod = "fallBackUserHotelBreaker")
     public ResponseEntity<List<ViewRating>> getAllRatingByUserId(@PathVariable String userId){
         return ResponseEntity.ok(ratingService.getAllByUserId(userId));
     }
+
+    public ResponseEntity<List<ViewRating>> fallBackUserHotelBreaker(String userId, Exception ex){
+
+        logger.info("Fallback method executed since any of the service in down", ex.getMessage());
+        List<ViewRating> viewRatings = new ArrayList<>();
+        ViewRating rating = ViewRating.builder()
+                .feedback("One or more Services are down")
+                .build();
+        viewRatings.add(rating);
+        return ResponseEntity.ok(viewRatings);
+    }
+
 
     @GetMapping("/hotels/{hotelId}")
     public ResponseEntity<List<RatingDto>> getAllRatingByHotelId(@PathVariable String hotelId){

@@ -36,3 +36,13 @@ logging:
   logback:
     rollingpolicy:
       max-file-size: 1MB
+
+management:
+  endpoints:
+      web:
+        exposure:
+          include: health
+
+  endpoint:
+    health:
+      show-details: always
