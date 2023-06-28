@@ -23,5 +23,13 @@ server:
   port: 8084
 
 
+okta:
+  oauth2:
+    audience: api://default
+    issuer: https://dev-51144467.okta.com/oauth2/default
+    client-id: 0oaa615eho8hsHfHK5d7
+    client-secret: ksrFn7561lxiUjBHt5RtaCTSAb7BPWgpazkRgqm0
+    scopes: openid, profile, email, offline_access
+
 
 

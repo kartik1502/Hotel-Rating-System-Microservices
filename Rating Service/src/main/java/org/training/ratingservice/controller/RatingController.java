@@ -38,7 +38,9 @@ public class RatingController {
     }
 
     @GetMapping("/users/{userId}")
-    @RateLimiter(name = "userHotelRateLimiter", fallbackMethod = "fallBackUserHotelBreaker")
+    @CircuitBreaker(name = "userHotelBreaker", fallbackMethod = "fallBackUserHotelBreaker")
+//    @Retry(name = "userHotelRetry", fallbackMethod = "fallBackUserHotelBreaker")
+//    @RateLimiter(name = "userHotelRateLimiter", fallbackMethod = "fallBackUserHotelBreaker")
     public ResponseEntity<List<ViewRating>> getAllRatingByUserId(@PathVariable String userId){
         return ResponseEntity.ok(ratingService.getAllByUserId(userId));
     }
