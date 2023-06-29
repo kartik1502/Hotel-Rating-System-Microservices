@@ -1,0 +1,305 @@
+{
+	"info": {
+		"_postman_id": "80ac76c1-6a4e-4cb4-bda3-88b69da4057e",
+		"name": "Hotel Rating System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13046684"
+	},
+	"item": [
+		{
+			"name": "API Gateway",
+			"item": [
+				{
+					"name": "User Service",
+					"item": [
+						{
+							"name": "Get All Users",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_Url}}/users",
+									"host": [
+										"{{base_Url}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User by userId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_Url}}/users/7c298621-12bb-410e-a89c-31e5736692e7",
+									"host": [
+										"{{base_Url}}"
+									],
+									"path": [
+										"users",
+										"7c298621-12bb-410e-a89c-31e5736692e7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add a user",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\" : \"Adam\",\r\n    \"lastName\" : \"Sanadi\",\r\n    \"emailId\" : \"adamsanadi6@gmail.com\",\r\n    \"contactNo\" : \"8495126598\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_Url}}/users",
+									"host": [
+										"{{base_Url}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get health",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Hotel Service",
+					"item": [
+						{
+							"name": "Get all hotels",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_Url}}/hotels",
+									"host": [
+										"{{base_Url}}"
+									],
+									"path": [
+										"hotels"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get hotel By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_Url}}/hotels/9e976cec-83d1-4253-934c-e38035605e92",
+									"host": [
+										"{{base_Url}}"
+									],
+									"path": [
+										"hotels",
+										"9e976cec-83d1-4253-934c-e38035605e92"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add a hotel",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"name\": \"Ananth Residency\",\r\n        \"location\": \"Gokul Road, Hubli\",\r\n        \"about\": \"Specialized in Korean Cusine\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_Url}}/hotels",
+									"host": [
+										"{{base_Url}}"
+									],
+									"path": [
+										"hotels"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Rating Service",
+					"item": [
+						{
+							"name": "Get all Ratings",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_Url}}/ratings",
+									"host": [
+										"{{base_Url}}"
+									],
+									"path": [
+										"ratings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all ratings by userId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_Url}}/ratings/users/7c298621-12bb-410e-a89c-31e5736692e7",
+									"host": [
+										"{{base_Url}}"
+									],
+									"path": [
+										"ratings",
+										"users",
+										"7c298621-12bb-410e-a89c-31e5736692e7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Ratings by hotel",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_Url}}/ratings/hotels/9e976cec-83d1-4253-934c-e38035605e92",
+									"host": [
+										"{{base_Url}}"
+									],
+									"path": [
+										"ratings",
+										"hotels",
+										"9e976cec-83d1-4253-934c-e38035605e92"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add a Rating",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"rating\": \"6\",\r\n        \"userId\": \"a565f424-b666-4213-a947-c68456079bcc\",\r\n        \"hotelId\": \"9e976cec-83d1-4253-934c-e38035605e92\",\r\n        \"feedback\": \"The Food is ok ok, service was bad\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_Url}}/ratings",
+									"host": [
+										"{{base_Url}}"
+									],
+									"path": [
+										"ratings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Health",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "oauth2",
+				"oauth2": [
+					{
+						"key": "addTokenTo",
+						"value": "header",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_Url",
+			"value": "http://localhost:8084"
+		}
+	]
+}
