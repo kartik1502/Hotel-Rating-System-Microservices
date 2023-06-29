@@ -1,29 +1,26 @@
 server:
-  port: 8080
+  port: 8081
+  error:
+    include-binding-errors: always
 
 spring:
   application:
-    name: USER-SERVICE
+    name: HOTEL-SERVICE
     bad_request: 403
     responseCode: 200
     conflict: 409
     not_found: 404
-
   datasource:
-    url: jdbc:mysql://localhost:3306/hotel_rating_user_service
+    url: jdbc:mysql://localhost:3306/hotel_rating_hotel_service
     username: root
     password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    properties:
-      username: root
-      password: root
   jpa:
-    hibernate:
-      ddl-auto: update
+    show-sql: true
     properties:
       hibernate:
         format_sql: true
-    show-sql: true
+    hibernate:
+      ddl-auto: update
   config:
     import: configserver:http://localhost:8083
 
@@ -36,15 +33,6 @@ logging:
   logback:
     rollingpolicy:
       max-file-size: 1MB
-
-management:
-  endpoints:
-      web:
-        exposure:
-          include: health
-  endpoint:
-    health:
-      show-details: always
 
 okta:
   oauth2:

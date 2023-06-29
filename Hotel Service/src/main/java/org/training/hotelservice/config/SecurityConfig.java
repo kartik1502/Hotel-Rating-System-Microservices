@@ -1,4 +1,4 @@
-package org.training.ratingservice.config;
+package org.training.hotelservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,14 +15,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
-        httpSecurity
+        return httpSecurity
                 .authorizeHttpRequests()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .oauth2ResourceServer()
-                .jwt();
-
-        return httpSecurity.build();
+                .jwt().and().and().build();
     }
 }

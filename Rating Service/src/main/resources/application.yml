@@ -40,12 +40,9 @@ spring:
             scope: internal
             client-id: 0oaa615eho8hsHfHK5d7
             client-secret: ksrFn7561lxiUjBHt5RtaCTSAb7BPWgpazkRgqm0
-
         provider:
           okta:
             issuer-uri: https://dev-51144467.okta.com/oauth2/default
-
-
 
 logging:
   level:
@@ -96,10 +93,8 @@ resilience4j:
         limit-for-period: 2
         timeout-duration: 0s
 
+
 okta:
   oauth2:
     audience: api://default
     issuer: https://dev-51144467.okta.com/oauth2/default
-    client-id: 0oaa615eho8hsHfHK5d7
-    client-secret: ksrFn7561lxiUjBHt5RtaCTSAb7BPWgpazkRgqm0
-    scopes: profile, email, openid, offline_access
